@@ -2,6 +2,33 @@
   height: 800px;
 }
 
+.slider-container{
+  margin-bottom: 10px;
+  display: flex; /* Ue flexbox to align items horizontally */
+  align-items: center;
+}
+
+.select-container{
+  position:relative;
+  left: 800px;
+  bottom: 15px;
+}
+
+.select {
+  width: 200px; /* Adjust width as needed */
+  margin-right: 10px;
+}
+.customSlider {
+  width: 200px; 
+}
+
+.customSlider-thumb {
+  width: 20px; /* Adjust thumb width as needed */
+  height: 20px; /* Adjust thumb height as needed */
+  background-color: #007bff; /* Example background color */
+  border-radius: 5%; /* Ensure thumb is round */
+}
+
 .sidebar {
   background-color: rgb(35 55 75 / 90%);
   color: #fff;
@@ -14,5 +41,4 @@
   margin: 12px;
   border-radius: 4px;
 }
-
 
