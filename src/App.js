@@ -13,6 +13,7 @@ export default function App() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(7);
   const [selectedOption, setSelectedOption] = useState(null); // Move useState to the top level
+  const [sliderValue, setSliderValue] = useState(50);
 
   console.log(states);
 
@@ -51,6 +52,7 @@ export default function App() {
     console.log(geoJsonForm);
 
     map.current.on('load', () => {
+      
       map.current.addSource('states', {'type':'geojson','data':geoJsonForm});
 
       map.current.addLayer({
@@ -60,7 +62,7 @@ export default function App() {
         'layout': {},
         'paint': {
           'fill-color': 'blue',
-          'fill-opacity': .5 //play with this
+          'fill-opacity': sliderValue/100 //play with this
         }
       });
       map.current.addLayer({
@@ -103,20 +105,25 @@ export default function App() {
         popup.remove();
       });
     });
-  }, [lng, lat, zoom]);
+  }, [lng, lat, zoom, sliderValue]);
 
   function handleChange(value) {
     setSelectedOption(value);
     if (value === 'off') {
-      map.current.setLayoutProperty('maine', 'visibility', 'none');
-    } else {
-      map.current.setLayoutProperty('maine', 'visibility', 'visible');
+      map.current.setLayoutProperty('states', 'visibility', 'none');
+    } else{
+      map.current.setLayoutProperty('states', 'visibility', 'visible');
     }
   } 
+  const handleSliderChange = newValue => {
+    setSliderValue(newValue);
+    // Adjust the fill-opacity paint property of the layer based on the slider value
+    map.current.setPaintProperty('states', 'fill-opacity', newValue / 100);
+  };
 
   const options = [
-    {value: 'on', label: 'on'},
-    {value: 'off', label: 'off'},
+    {value: 'on', label: 'On'},
+    {value: 'off', label: 'Off'},
   ];
 
   return (
@@ -124,19 +131,25 @@ export default function App() {
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <ReactSlider 
-        ariaLabelledby="slider-label"
-        defaultValue={[50]}
-        className="customSlider"
-        thumbClassName="customSlider-thumb"
-        trackClassName="customSlider-track"
-        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>} />
+      <div className="slider-container" >
+        <ReactSlider 
+          ariaLabelledby="slider-label"
+          defaultValue={[50]}
+          className="customSlider"
+          onChange={handleSliderChange}         
+          thumbClassName="customSlider-thumb"
+          trackClassName="customSlider-track"
+          renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>} />
+      </div>
 
-      <Select
-        
-        defaultValue={selectedOption}
-        onChange={e => handleChange(e.value, setSelectedOption)}
-        options={options} />
+      <div className = "select-container"> 
+        <Select
+          className="select"
+          defaultValue={selectedOption}
+          onChange={e => handleChange(e.value, setSelectedOption)}
+          options={options} />
+
+      </div>
           
       <div ref={mapContainer} className="map-container" />
     </div>
@@ -144,4 +157,6 @@ export default function App() {
 }
 //export NODE_OPTIONS=--openssl-legacy-provider
 //have the map load before the slider and try to change the properties for the slider change the css
-//send error for github try to remove node modules 
+//git commit -m "new"
+//git push --set-upstream dashboard main
+
