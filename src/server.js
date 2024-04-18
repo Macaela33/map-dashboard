@@ -4,12 +4,14 @@ const port = 5000; // You can choose any port
 
 app.get('/', (req, res) => {
     res.send('Hello from the Node.js backend!');
+    
 });
 
 app.listen(port, () => {
     console.log(`Server is running on port number ${port}`);
 });
 
-app.get('api/get_geo_data', (req,res) => {
+app.get('/api/get_geo_data', (req, res) => {
     res.send('hello');
+
 });
