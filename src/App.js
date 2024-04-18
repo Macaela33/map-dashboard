@@ -18,6 +18,9 @@ export default function App() {
   console.log(states);
 
   useEffect(() => {
+    fetch('/api/get_geo_data')
+      .then((response) => console.log(response));
+
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -155,8 +158,3 @@ export default function App() {
     </div>
   );
 }
-//export NODE_OPTIONS=--openssl-legacy-provider
-//have the map load before the slider and try to change the properties for the slider change the css
-//git commit -m "new"
-//git push --set-upstream dashboard main
-
