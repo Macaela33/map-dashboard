@@ -6,12 +6,18 @@
   margin-bottom: 10px;
   display: flex; /* Ue flexbox to align items horizontally */
   align-items: center;
+  width: 200px;
+  margin: 20px;
+  height: 15px;
+  background-color: #ccc;
+  border-radius: 5px;
+  
 }
 
 .select-container{
   position:relative;
   left: 800px;
-  bottom: 15px;
+  bottom: 40px;
 }
 
 .select {
@@ -41,4 +47,6 @@
   margin: 12px;
   border-radius: 4px;
 }
+
+
 
